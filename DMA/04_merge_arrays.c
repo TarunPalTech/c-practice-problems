@@ -4,42 +4,34 @@
 
 #include<stdio.h>
 #include<stdlib.h>
-#define size 10
 
-void input(int*);
-void display(int*);
-void merge(int*, int*);
-
-int main(){
-    int a[10], b[10];
-    input(a);
-    input(b);
-    merge(a,b);
-    return 0;
-}
-
-void merge(int *p, int *q){
+int* mergeTwoArrays(int *p, int *q, int size1, int size2){
+    int *arr = NULL;
+    
+    arr = (int*)malloc((size1 + size2) * sizeof(int));
+    if(arr == NULL){
+        printf("Memory allocation failed!");
+        exit(EXIT_FAILURE);
+    }
+    
     int i;
-    int *r = (int*)malloc(size*2);
-    for(i=0;i<size;i++){
-        *(r+i)=*(p+i);
+    for(i=0;i<size1;i++){
+        arr[i] = p[i];
     }
-    for(int j=0;j<size;j++){
-        *(r+i)=*(q+j);
-        i++;
+    for(int j=0;j<size2;j++){
+        arr[i++] = q[j];
     }
-    display(r);
+    
+    return arr;
 }
-
-void display(int *p){
-    for(int i=0;i<size*2;i++){
-        printf("%d\t",*(p+i));
+int main(){
+    int arr1[6] = {1,2,3,4,5,6}, arr2[4] = {9,8,7,10};
+    
+    int *result = mergeTwoArrays(arr1, arr2, 6, 4);
+    
+    for(int i=0;i<10;i++){
+        printf("%d\t",result[i]);
     }
-}
-
-void input(int *p){
-    printf("Enter %d elements:",size);
-    for(int i=0;i<size;i++){
-        scanf("%d",(p+i));
-    }
+    
+    return 0;
 }
